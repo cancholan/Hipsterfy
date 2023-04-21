@@ -97,8 +97,7 @@ td{
     transform: translateY(-50%);
     z-index: 0;
 }
-
-.fa-play{
+.playPauseBtn{
     padding: 10px;
     margin: 0 auto;
     z-index: 10;
@@ -107,8 +106,9 @@ td{
     margin-left: 25%;
     opacity: 0;
     color: #1DB954;
+    cursor: pointer;
 }
-.fa-play:hover{
+.playPauseBtn:hover{
     opacity: 1;
 }
 

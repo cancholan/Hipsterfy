@@ -74,6 +74,24 @@ function formatData(tracks){
     displayMusic(formatedTracks);
 }
 
+//media control
+function playPauseMusic(index, track){
+    if(track === "null"){
+        alert("No preview track");
+        return
+    }
+    const PLAY_PAUSE_BTN = document.querySelector("#playPauseBtn" + index);
+    if(PLAY_PAUSE_BTN.classList.contains("fa-play")){
+        PLAY_PAUSE_BTN.classList.remove("fa-play");
+        PLAY_PAUSE_BTN.classList.add("fa-pause");
+    } else {
+        PLAY_PAUSE_BTN.classList.remove("fa-pause");
+        PLAY_PAUSE_BTN.classList.add("fa-play");
+    }
+    console.log(PLAY_PAUSE_BTN.classList);
+    console.log(track);
+}
+
 //create table rows and add to table
 function displayMusic(musicArr){
     for(let i=0; i<musicArr.length; i++){
@@ -81,7 +99,7 @@ function displayMusic(musicArr){
         var rowContent = `<td class="idCell">${i+1}</td>
                           <td class="musicPlayer">
                             <img src="${musicArr[i].Image}" class="trackArt">
-                            <i class="fa-solid fa-play"></i>
+                            <i class="fa-solid fa-play playPauseBtn" id="playPauseBtn${i}" onclick="playPauseMusic('${i}','${musicArr[i].TrackPreview}')"></i>
                           </td> 
                           <td class="trackCell">
                             <div class="trackInfo">
