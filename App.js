@@ -79,10 +79,14 @@ function displayMusic(musicArr){
     for(let i=0; i<musicArr.length; i++){
         var newRow = document.createElement("tr");
         var rowContent = `<td class="idCell">${i+1}</td>
+                          <td class="musicPlayer">
+                            <img src="${musicArr[i].Image}" class="trackArt">
+                            <i class="fa-solid fa-play"></i>
+                          </td> 
                           <td class="trackCell">
-                            <img src="${musicArr[i].Image}"> 
                             <div class="trackInfo">
-                                <p class="trackName"><a href="${musicArr[i].TrackUrl}" target="_blank">${musicArr[i].TrackName} </a></p> <p class="artistName"><a href="${musicArr[i].Artists[0].url}" target="_blank">${musicArr[i].Artists[0].name} </a></p>
+                                <p class="trackName"><a href="${musicArr[i].TrackUrl}" target="_blank">${musicArr[i].TrackName} </a></p> 
+                                <p class="artistName"><a href="${musicArr[i].Artists[0].url}" target="_blank">${musicArr[i].Artists[0].name} </a></p>
                             </div>
                           </td>
                           <td class="albumCell"><p><a href="${musicArr[i].AlbumUrl}" target="_blank">${musicArr[i].AlbumName} </a></p></td>
