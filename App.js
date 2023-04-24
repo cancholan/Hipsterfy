@@ -80,11 +80,14 @@ function playPauseMusic(index, track){
         alert("No preview track");
         return
     }
+    const SONG = document.querySelector("#track" + index);
     const PLAY_PAUSE_BTN = document.querySelector("#playPauseBtn" + index);
     if(PLAY_PAUSE_BTN.classList.contains("fa-play")){
+        SONG.play();
         PLAY_PAUSE_BTN.classList.remove("fa-play");
         PLAY_PAUSE_BTN.classList.add("fa-pause");
     } else {
+        SONG.pause();
         PLAY_PAUSE_BTN.classList.remove("fa-pause");
         PLAY_PAUSE_BTN.classList.add("fa-play");
     }
@@ -99,6 +102,9 @@ function displayMusic(musicArr){
         var rowContent = `<td class="idCell">${i+1}</td>
                           <td class="musicPlayer">
                             <img src="${musicArr[i].Image}" class="trackArt">
+                            <audio id="track${i}">
+                                <source src="${musicArr[i].TrackPreview}" type="audio/mpeg">
+                            </audio>
                             <i class="fa-solid fa-play playPauseBtn" id="playPauseBtn${i}" onclick="playPauseMusic('${i}','${musicArr[i].TrackPreview}')"></i>
                           </td> 
                           <td class="trackCell">
