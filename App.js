@@ -74,15 +74,43 @@ function formatData(tracks){
     displayMusic(formatedTracks);
 }
 
+//media control
+function playPauseMusic(index, track){
+    if(track === "null"){
+        alert("No preview track");
+        return
+    }
+    const SONG = document.querySelector("#track" + index);
+    const PLAY_PAUSE_BTN = document.querySelector("#playPauseBtn" + index);
+    if(PLAY_PAUSE_BTN.classList.contains("fa-play")){
+        SONG.play();
+        PLAY_PAUSE_BTN.classList.remove("fa-play");
+        PLAY_PAUSE_BTN.classList.add("fa-pause");
+    } else {
+        SONG.pause();
+        PLAY_PAUSE_BTN.classList.remove("fa-pause");
+        PLAY_PAUSE_BTN.classList.add("fa-play");
+    }
+    console.log(PLAY_PAUSE_BTN.classList);
+    console.log(track);
+}
+
 //create table rows and add to table
 function displayMusic(musicArr){
     for(let i=0; i<musicArr.length; i++){
         var newRow = document.createElement("tr");
         var rowContent = `<td class="idCell">${i+1}</td>
+                          <td class="musicPlayer">
+                            <img src="${musicArr[i].Image}" class="trackArt">
+                            <audio id="track${i}">
+                                <source src="${musicArr[i].TrackPreview}" type="audio/mpeg">
+                            </audio>
+                            <i class="fa-solid fa-play playPauseBtn" id="playPauseBtn${i}" onclick="playPauseMusic('${i}','${musicArr[i].TrackPreview}')"></i>
+                          </td> 
                           <td class="trackCell">
-                            <img src="${musicArr[i].Image}"> 
                             <div class="trackInfo">
-                                <p class="trackName"><a href="${musicArr[i].TrackUrl}" target="_blank">${musicArr[i].TrackName} </a></p> <p class="artistName"><a href="${musicArr[i].Artists[0].url}" target="_blank">${musicArr[i].Artists[0].name} </a></p>
+                                <p class="trackName"><a href="${musicArr[i].TrackUrl}" target="_blank">${musicArr[i].TrackName} </a></p> 
+                                <p class="artistName"><a href="${musicArr[i].Artists[0].url}" target="_blank">${musicArr[i].Artists[0].name} </a></p>
                             </div>
                           </td>
                           <td class="albumCell"><p><a href="${musicArr[i].AlbumUrl}" target="_blank">${musicArr[i].AlbumName} </a></p></td>
