@@ -140,7 +140,16 @@ footer{
 }
 
 .hidden{
-    display: none;
+    opacity: 0;
+    filter: blur(5px);
+    transition: all 1s;
+    transform: translateY(10px);
+}
+.show{
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+
 }
 
 @media (max-width: 600px) {

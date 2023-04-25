@@ -1,5 +1,5 @@
 //global reference to table
-const MUSIC_TABLE = document.querySelector('.hidden');
+const MUSIC_TABLE = document.querySelector('.table');
 const MUSIC_TABLE_BODY = document.querySelector('.music');
 
 //fetch request to get access token
@@ -128,7 +128,7 @@ async function main(){
     var artistGenres = [];
 
     BTN.addEventListener('click', async() => {
-        MUSIC_TABLE.classList.remove('hidden');
+        MUSIC_TABLE.classList.remove('show');
         MUSIC_TABLE_BODY.replaceChildren();
         var query = TEXT_INPUT.value;
         if(!query){
@@ -150,6 +150,7 @@ async function main(){
                 formatData(rec.tracks);
             }
         }
+        MUSIC_TABLE.classList.add('show');
     })
 }
 
