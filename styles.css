@@ -152,9 +152,18 @@ footer{
 
 }
 
-@media (max-width: 600px) {
+@media (max-width: 600px) {      
     .content{
-        width: 100%;
-        overflow-x: hidden;
+        width: 95%; 
+        font-size: 12px;
+    }   
+    #textInput{
+        margin-bottom: 5px;
+    }
+    td{
+        padding: 2px;
+    }
+    .trackInfo{
+        margin-left: 10px;
     }
 }
