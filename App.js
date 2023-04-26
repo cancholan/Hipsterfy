@@ -77,7 +77,7 @@ function formatData(tracks){
 //media control
 function playPauseMusic(index, track){
     if(track === "null"){
-        alert("No preview track");
+        warningMsg("No track preview");
         return
     }
     const SONG = document.querySelector("#track" + index);
@@ -120,6 +120,21 @@ function displayMusic(musicArr){
     }
 }
 
+//pop up warning in case of error
+function warningMsg(errorMsg){
+    const WARNING_DIV = document.querySelector(".warning");
+    const CLOSE_BTN = document.querySelector(".fa-x");
+    var newPara = document.createElement("p");
+    newPara.innerHTML = errorMsg;
+    WARNING_DIV.appendChild(newPara);
+    WARNING_DIV.style.display = "flex";
+
+    CLOSE_BTN.addEventListener('click', () => {
+        WARNING_DIV.removeChild(newPara);
+        WARNING_DIV.style.display = "none";
+    })
+}
+
 async function main(){
     const ACCESS_TOKEN = await fetchAccessToken();
     const BTN = document.querySelector(".btn");
@@ -132,7 +147,8 @@ async function main(){
         MUSIC_TABLE_BODY.replaceChildren();
         var query = TEXT_INPUT.value;
         if(!query){
-            alert("Please enter an artist to search for")
+            warningMsg("Please enter an artist to search for");
+            return;
         } else{
             const MUSIC = await fetchAPI(ACCESS_TOKEN, `search?q=${query}&type=artist&limit=1`,'GET');
             artistId = MUSIC.artists.items[0].id; 

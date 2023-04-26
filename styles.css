@@ -139,6 +139,27 @@ footer{
     bottom: 0;
 }
 
+.warning{
+    width: 30%;
+    height: 30%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    background: rgba(0, 0, 0, 0.9);
+    font-size: 20px;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+.fa-x{
+    position: absolute;
+    top: 5%;
+    right: 5%;
+}
+
 .hidden{
     opacity: 0;
     filter: blur(5px);
