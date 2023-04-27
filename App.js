@@ -75,6 +75,24 @@ function formatData(tracks){
 }
 
 //media control
+function playMusic(track){
+    //check if other tracks are playing and pause them
+    const AUDIO_PLAYERS = document.querySelectorAll("audio");
+    for(let i = 0; i < AUDIO_PLAYERS.length; i++){
+        let changeBtn = document.querySelector("#playPauseBtn" + i);
+        if(!AUDIO_PLAYERS[i].paused){
+            AUDIO_PLAYERS[i].pause();
+            changeBtn.classList.remove("fa-pause");
+            changeBtn.classList.add("fa-play");
+        }
+    } 
+    track.load();
+    track.play();  
+}
+function pauseMusic(track){
+    track.pause();
+}
+
 function playPauseMusic(index, track){
     if(track === "null"){
         warningMsg("No track preview");
@@ -82,8 +100,9 @@ function playPauseMusic(index, track){
     }
     const SONG = document.querySelector("#track" + index);
     const PLAY_PAUSE_BTN = document.querySelector("#playPauseBtn" + index);
+    
     if(PLAY_PAUSE_BTN.classList.contains("fa-play")){
-        SONG.play();
+        playMusic(SONG);
         PLAY_PAUSE_BTN.classList.remove("fa-play");
         PLAY_PAUSE_BTN.classList.add("fa-pause");
     } else {
@@ -91,8 +110,6 @@ function playPauseMusic(index, track){
         PLAY_PAUSE_BTN.classList.remove("fa-pause");
         PLAY_PAUSE_BTN.classList.add("fa-play");
     }
-    console.log(PLAY_PAUSE_BTN.classList);
-    console.log(track);
 }
 
 //create table rows and add to table
