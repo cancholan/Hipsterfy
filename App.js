@@ -99,14 +99,16 @@ function playPauseMusic(index, track){
 function displayMusic(musicArr){
     for(let i=0; i<musicArr.length; i++){
         var newRow = document.createElement("tr");
-        var rowContent = `<td class="idCell">${i+1}</td>
-                          <td class="musicPlayer">
-                            <img src="${musicArr[i].Image}" class="trackArt">
+        var rowContent = `<td class="idCell">
+                            <p class="trackId">${i+1}</p>  
                             <audio id="track${i}">
                                 <source src="${musicArr[i].TrackPreview}" type="audio/mpeg">
                             </audio>
                             <i class="fa-solid fa-play playPauseBtn" id="playPauseBtn${i}" onclick="playPauseMusic('${i}','${musicArr[i].TrackPreview}')"></i>
                           </td> 
+                          </td>
+                          <td class="musicPlayer">
+                            <img src="${musicArr[i].Image}" class="trackArt">
                           <td class="trackCell">
                             <div class="trackInfo">
                                 <p class="trackName"><a href="${musicArr[i].TrackUrl}" target="_blank">${musicArr[i].TrackName} </a></p> 
