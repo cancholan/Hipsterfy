@@ -21,6 +21,7 @@ async function fetchAccessToken() {
         return data.access_token;
     } catch (error){
         console.error(error);
+        warningMsg("Sorry. There was a problem reaching Spotify. Please try again later.")
     }
 }
 
@@ -38,6 +39,7 @@ async function fetchAPI(token, endpoint, method) {
         return data;
     } catch(error){
         console.error(error);
+        warningMsg("Sorry. There was a problem reaching Spotify. Please try again later.")
     }
 }
 
@@ -75,7 +77,7 @@ function formatData(tracks){
 }
 
 //media control
-function playMusic(track){
+function playMusic(song){
     //check if other tracks are playing and pause them
     const AUDIO_PLAYERS = document.querySelectorAll("audio");
     for(let i = 0; i < AUDIO_PLAYERS.length; i++){
@@ -86,11 +88,8 @@ function playMusic(track){
             changeBtn.classList.add("fa-play");
         }
     } 
-    track.load();
-    track.play();  
-}
-function pauseMusic(track){
-    track.pause();
+    song.load();
+    song.play();  
 }
 
 function playPauseMusic(index, track){
