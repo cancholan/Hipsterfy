@@ -13,7 +13,6 @@
     flex-direction: column;
 }
 .content{
-    padding-bottom: 150px;
     width: 80%;
     overflow-x: hidden;
 }
@@ -123,14 +122,48 @@ a:hover{
     text-decoration: underline;
 }
 
+.accordion-body{
+    width: 50%;
+    margin: 0 auto;
+    padding-bottom: 60px;
+    text-align: center;
+    position: relative;
+}
+.acc-container{
+    text-align: left;
+}
+.acc-label{
+    padding-top: 10px;
+    padding-left: 10px;
+    margin: 5px;
+    position: relative;
+    color: #1DB954;
+    border-top: solid #1DB954 1px; 
+    cursor: pointer;
+}
+.acc-content{
+    position: relative;
+    height: 0;
+    padding-left: 20px;
+    overflow: hidden;
+    line-height: 25px;
+    transition: 0.5s;
+}
+.acc-active > .acc-content{
+    height: 100px;
+}
+
 footer{
     width: 100%;
-    height: 150px;
+    height: 50px;
     text-align: center;
     border-top: solid #1DB954;
     margin-top: 20px;
     position: absolute;
     bottom: 0;
+}
+.github{
+    text-decoration: underline;
 }
 
 .warning{
