@@ -39,7 +39,7 @@ async function fetchAPI(token, endpoint, method) {
         return data;
     } catch(error){
         console.error(error);
-        warningMsg("Sorry. There was a problem reaching Spotify. Please try again later.")
+        warningMsg("Sorry. There was a problem reaching Spotify. Please try again later.");
     }
 }
 
@@ -169,18 +169,19 @@ async function main(){
             return;
         } else{
             const MUSIC = await fetchAPI(ACCESS_TOKEN, `search?q=${query}&type=artist&limit=1`,'GET');
+            console.log(MUSIC);
             artistId = MUSIC.artists.items[0].id; 
             artistGenres = MUSIC.artists.items[0].genres;
             //limit search to just 4 genres
             if (artistGenres.length <= 4){
-                const rec = await fetchAPI(ACCESS_TOKEN, `recommendations?limit=10&seed_artists=${artistId}&seed_genres=${artistGenres.join()}&max_popularity=25`, 'GET');
+                const rec = await fetchAPI(ACCESS_TOKEN, `recommendations?limit=10&seed_artists=${artistId}&seed_genres=${artistGenres.join()}&max_popularity=25&min_popularity=10`, 'GET');
                 formatData(rec.tracks);
             } else{
                 let newArtistGenres = [];
                 for (let i=0; i<4; i++){
                     newArtistGenres.push(artistGenres[i]);
                 }
-                const rec = await fetchAPI(ACCESS_TOKEN, `recommendations?limit=10&seed_artists=${artistId}&seed_genres=${newArtistGenres.join()}&max_popularity=25`, 'GET');
+                const rec = await fetchAPI(ACCESS_TOKEN, `recommendations?limit=10&seed_artists=${artistId}&seed_genres=${newArtistGenres.join()}&max_popularity=25&min_popularity=10`, 'GET');
                 formatData(rec.tracks);
             }
         }
