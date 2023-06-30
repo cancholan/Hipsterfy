@@ -127,12 +127,22 @@ function displayMusic(musicArr){
                             <img src="${musicArr[i].Image}" class="trackArt">
                           <td class="trackCell">
                             <div class="trackInfo">
-                                <p class="trackName"><a href="${musicArr[i].TrackUrl}" target="_blank">${musicArr[i].TrackName} </a></p> 
-                                <p class="artistName"><a href="${musicArr[i].Artists[0].url}" target="_blank">${musicArr[i].Artists[0].name} </a></p>
+                                <p class="trackName">
+                                    <a href="${musicArr[i].TrackUrl}" target="_blank">${musicArr[i].TrackName} </a>
+                                </p> 
+                                <p class="artistName">
+                                    <a href="${musicArr[i].Artists[0].url}" target="_blank">${musicArr[i].Artists[0].name} </a>
+                                </p>
                             </div>
                           </td>
-                          <td class="albumCell"><p><a href="${musicArr[i].AlbumUrl}" target="_blank">${musicArr[i].AlbumName} </a></p></td>
-                          <td class="durationCell"><p>${musicArr[i].Duration}</p></td>`;
+                          <td class="albumCell">
+                            <p>
+                                <a href="${musicArr[i].AlbumUrl}" target="_blank">${musicArr[i].AlbumName} </a>
+                            </p>
+                          </td>
+                          <td class="durationCell">
+                            <p>${musicArr[i].Duration}</p>
+                          </td>`;
         newRow.innerHTML = rowContent;
         MUSIC_TABLE_BODY.appendChild(newRow);
     }
