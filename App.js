@@ -205,7 +205,7 @@ async function main(){
         PLAYLIST_BTN.classList.add('show');
     })
 
-    PLAYLIST_BTN.addEventListener('click', () => createPlaylist());
+    PLAYLIST_BTN.addEventListener('click', createPlaylist);
 }
 
 main();
