@@ -1,6 +1,7 @@
-//global reference to table
+//global reference to elements
 const MUSIC_TABLE = document.querySelector('.table');
 const MUSIC_TABLE_BODY = document.querySelector('.music');
+const PLAYLIST_BTN = document.querySelector('.playlist');
 
 //fetch request to get access token
 async function fetchAccessToken() {
@@ -111,6 +112,11 @@ function playPauseMusic(index, track){
     }
 }
 
+//create Spotify playlist
+function createPlaylist(){
+    alert("This function is currently under development.");
+}
+
 //create table rows and add to table
 function displayMusic(musicArr){
     for(let i=0; i<musicArr.length; i++){
@@ -196,7 +202,10 @@ async function main(){
             }
         }
         MUSIC_TABLE.classList.add('show');
+        PLAYLIST_BTN.classList.add('show');
     })
+
+    PLAYLIST_BTN.addEventListener('click', () => createPlaylist());
 }
 
 main();
