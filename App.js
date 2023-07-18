@@ -43,7 +43,7 @@ async function fetchAPI(token, endpoint, method) {
     }
 }
 
-//grab relevant info from returned data and pass to display function
+//grab relevant info from returned data and grab relevant info
 function formatData(tracks){
     var formatedTracks = [];
     for(let i=0; i < tracks.length; i++){
@@ -113,14 +113,14 @@ function playPauseMusic(index, track){
 //create Spotify playlist
 async function createPlaylist(ACCESS_TOKEN, recs){
     alert("This function is currently under development.");
-    return
-    const musicArr = formatData(recs);
-    console.log(musicArr);
+    const musicArr = formatData(recs.tracks);
     const tracksUri = [];
     for(i=0; i < musicArr.length; i++){
         const uri = `spotify:track:${musicArr[i].TrackId}`;
         tracksUri.push(uri);
     }
+    console.log(tracksUri);
+    return
     const { id: user_id } = await fetchAPI(ACCESS_TOKEN, 'me', 'GET');
     const playlist = await fetchAPI(ACCESS_TOKEN,
         `v1/users/${user_id}/playlists`, {
