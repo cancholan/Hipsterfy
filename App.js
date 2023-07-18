@@ -1,7 +1,6 @@
 //global reference to elements
 const MUSIC_TABLE = document.querySelector('.table');
 const MUSIC_TABLE_BODY = document.querySelector('.music');
-const PLAYLIST_BTN = document.querySelector('.playlist');
 
 //fetch request to get access token
 async function fetchAccessToken() {
@@ -47,7 +46,6 @@ async function fetchAPI(token, endpoint, method) {
 //grab relevant info from returned data and pass to display function
 function formatData(tracks){
     var formatedTracks = [];
-    
     for(let i=0; i < tracks.length; i++){
         const obj = {};
         //format time as 00:00
@@ -73,8 +71,8 @@ function formatData(tracks){
         obj.Image = tracks[i].album.images[2].url;
         formatedTracks.push(obj);
     }
-    console.log(formatedTracks);
-    displayMusic(formatedTracks);
+    //console.log(formatedTracks);
+    return formatedTracks;
 }
 
 //media control
@@ -113,8 +111,24 @@ function playPauseMusic(index, track){
 }
 
 //create Spotify playlist
-function createPlaylist(){
+async function createPlaylist(ACCESS_TOKEN, recs){
     alert("This function is currently under development.");
+    return
+    const musicArr = formatData(recs);
+    console.log(musicArr);
+    const tracksUri = [];
+    for(i=0; i < musicArr.length; i++){
+        const uri = `spotify:track:${musicArr[i].TrackId}`;
+        tracksUri.push(uri);
+    }
+    const { id: user_id } = await fetchAPI(ACCESS_TOKEN, 'me', 'GET');
+    const playlist = await fetchAPI(ACCESS_TOKEN,
+        `v1/users/${user_id}/playlists`, {
+          "name": `My recommendation playlist`,
+          "description": `Playlist created by Hipsterfy`,
+          "public": false
+      }, 'POST');
+    await fetchAPI(ACCESS_TOKEN, `v1/playlists/${playlist.id}/tracks?uris=${tracksUri.join(',')}`, 'POST');
 }
 
 //create table rows and add to table
@@ -172,9 +186,11 @@ function warningMsg(errorMsg){
 async function main(){
     const ACCESS_TOKEN = await fetchAccessToken();
     const BTN = document.querySelector(".btn");
+    const PLAYLIST_BTN = document.querySelector('.playlist');
     const TEXT_INPUT = document.querySelector("#textInput");
     var artistId = "";
     var artistGenres = [];
+    var rec = {};
 
     BTN.addEventListener('click', async() => {
         MUSIC_TABLE.classList.remove('show');
@@ -185,27 +201,30 @@ async function main(){
             return;
         } else{
             const MUSIC = await fetchAPI(ACCESS_TOKEN, `search?q=${query}&type=artist&limit=1`,'GET');
-            console.log(MUSIC);
+            //console.log(MUSIC);
             artistId = MUSIC.artists.items[0].id; 
             artistGenres = MUSIC.artists.items[0].genres;
             //limit search to just 4 genres
             if (artistGenres.length <= 4){
-                const rec = await fetchAPI(ACCESS_TOKEN, `recommendations?limit=10&seed_artists=${artistId}&seed_genres=${artistGenres.join()}&max_popularity=25&min_popularity=10`, 'GET');
-                formatData(rec.tracks);
+                rec = await fetchAPI(ACCESS_TOKEN, `recommendations?limit=10&seed_artists=${artistId}&seed_genres=${artistGenres.join()}&max_popularity=25&min_popularity=10`, 'GET');
+                const formatedTracks = formatData(rec.tracks);
+                displayMusic(formatedTracks);
             } else{
                 let newArtistGenres = [];
                 for (let i=0; i<4; i++){
                     newArtistGenres.push(artistGenres[i]);
                 }
-                const rec = await fetchAPI(ACCESS_TOKEN, `recommendations?limit=10&seed_artists=${artistId}&seed_genres=${newArtistGenres.join()}&max_popularity=25&min_popularity=10`, 'GET');
-                formatData(rec.tracks);
+                rec = await fetchAPI(ACCESS_TOKEN, `recommendations?limit=10&seed_artists=${artistId}&seed_genres=${newArtistGenres.join()}&max_popularity=25&min_popularity=10`, 'GET');
+                const formatedTracks = formatData(rec.tracks);
+                displayMusic(formatedTracks);
             }
         }
         MUSIC_TABLE.classList.add('show');
         PLAYLIST_BTN.classList.add('show');
     })
 
-    PLAYLIST_BTN.addEventListener('click', createPlaylist);
+    PLAYLIST_BTN.addEventListener('click', () => createPlaylist(ACCESS_TOKEN, rec));
+
 }
 
 main();
